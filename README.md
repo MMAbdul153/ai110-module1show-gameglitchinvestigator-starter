@@ -25,9 +25,23 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] Describe the game's purpose.
+
+  A number guessing game where the player tries to guess a secret number within a limited number of attempts. The difficulty setting controls the number range and attempt limit. Points are awarded based on how quickly the correct number is guessed.
+
+- [x] Detail which bugs you found.
+
+  1. **Wrong hint directions** — "Too High" told the player to go higher, and "Too Low" told them to go lower, making it impossible to win by following the hints.
+  2. **String/int type mismatch** — On every even-numbered attempt, the secret was passed as a string, causing incorrect comparisons against the integer guess.
+  3. **New Game button broken** — Clicking "New Game" after a win or loss didn't reset `status`, so the game immediately stopped again. It also didn't clear the guess history, and always picked a new secret from 1–100 regardless of difficulty.
+  4. **Logic not separated** — All game logic lived in `app.py` with no tests, making bugs hard to catch.
+
+- [x] Explain what fixes you applied.
+
+  1. Fixed the hint messages in `check_guess` so "Too High" maps to "Go LOWER" and "Too Low" maps to "Go HIGHER".
+  2. Added `int()` conversion for both `guess` and `secret` in `check_guess` to eliminate type mismatch errors.
+  3. Fixed the New Game button to reset `status`, `history`, and use the difficulty-aware range for the new secret.
+  4. Refactored all logic functions into `logic_utils.py` and fixed the test suite so `pytest` passes.
 
 ## 📸 Demo
 
